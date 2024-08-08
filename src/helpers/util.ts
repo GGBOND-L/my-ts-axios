@@ -11,6 +11,12 @@ export function isDate(val: any): val is Date {
 // }
 
 
+/**
+ * Checks if a value is a plain JavaScript object.
+ *
+ * @param {any} val - The value to check.
+ * @return {val is Object} - Returns true if the value is a plain object, false otherwise.
+ */
 export function isPlainObject(val:any): val is Object{
   return toString.call(val) === '[object Object]'
 }

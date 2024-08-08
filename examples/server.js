@@ -6,6 +6,10 @@ const webpackHotMiddleware = require('webpack-hot-middleware')
 const WebpackConfig = require('./webpack.config')
 
 const app = express()
+//app.use(express.json())：这个中间件用于解析 application/json 类型的请求体，并将解析后的内容挂载到 req.body 上。
+//如果不使用这个中间件，req.body 会是 undefined，因为 Express 默认不会解析请求体。
+app.use(express.json())
+
 const compiler = webpack(WebpackConfig)
 
 const router = express.Router()
@@ -20,13 +24,12 @@ router.get('/base/get', (req, res) => {
 })
 
 router.post('/base/post', (req, res) => {
-  console.log('/base/post-body',req.body)
   res.json(req.body)
 })
 
-router.post('/base/buffer', (req, res) => {
+router.post('/base/post', (req, res) => {
   let msg = []
-  req.on('data', (chunk) => {
+  req.on('data', chunk => {
     if (chunk) {
       msg.push(chunk)
     }
