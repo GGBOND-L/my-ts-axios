@@ -36,3 +36,28 @@ export function processHeaders(headers: any, data: any): any {
   }
   return headers
 }
+
+/**
+ * 将 headers 字符串解析成对象
+ * @param {string} headers - The headers string to be parsed.
+ * @return {any} The parsed headers object.
+ */
+export function parseHeaders(headers: string): any {
+  let res = Object.create(null)
+  if (!headers) {
+    return res
+  }
+  headers.split('\r\n').forEach(line => {
+    let [key, val] = line.split(':')
+    key = key.trim().toLowerCase()
+    if (!key) {
+      return
+    }
+    if (val) {
+      val = val.trim()
+    }
+
+    res[key] = val
+  })
+  return res
+}

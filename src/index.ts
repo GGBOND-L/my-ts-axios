@@ -1,12 +1,20 @@
 import { AxiosRequestConfig } from './types'
 import { bulidURL } from './helpers/url'
-import { transformRequest } from './helpers/data'
+import { transformRequest, transformResponse } from './helpers/data'
 import { processHeaders } from './helpers/headers'
+import { AxiosResponse } from './types'
 import xhr from './xhr'
 
 function axios(config: AxiosRequestConfig) {
   processConfig(config)
-  xhr(config)
+  return xhr(config).then(res => {
+    return transformResponseData(res)
+  })
+}
+
+function transformResponseData(res: AxiosResponse): AxiosResponse {
+  res.data = transformResponse(res.data)
+  return res
 }
 
 function processConfig(config: AxiosRequestConfig): void {

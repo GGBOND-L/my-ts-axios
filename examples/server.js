@@ -40,6 +40,10 @@ router.post('/base/post', (req, res) => {
   })
 })
 
+router.post('/api/getResponse', function(req, res) {
+  res.json(req.body)
+})
+
 app.use(router)
 
 app.use(
